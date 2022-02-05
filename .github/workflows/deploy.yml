@@ -14,5 +14,10 @@ jobs:
     - run: npm run build
     - run: |
         git config --global user.name 'justintout'
-        git commit -am "automated gh-pages build"
-        git push --force
+        git checkout --orphan gh-pages
+        git reset --hard
+        for p in ".parcel-cache" "dist" "node_modules"; do echo "${p}" >> .gitignore; done
+        mv dist/* .
+        git add .
+        git commit -m "automated page build"
+        git push --force origin gh-pages
