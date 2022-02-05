@@ -4,8 +4,15 @@
   "description": "",
   "entry": "dist/index.html",
   "source": "src/index.html",
+  "targets": {
+    "default": {
+      "publicUrl": ".",
+      "sourceMap": false
+    }
+  },
   "scripts": {
     "start": "parcel serve",
+    "build": "parcel build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
