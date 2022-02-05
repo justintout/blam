@@ -1,9 +1,7 @@
 name: "deploy"
-description: "build and deploy the app on gh-pages"
-author: "justintout"
 on: 
   push:
-    branches: [ master ]
+    branches: [ main ]
 jobs:
   build-gh-pages:
     runs-on: ubuntu-latest
