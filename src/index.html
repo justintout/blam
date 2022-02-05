@@ -5,17 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>blam!!</title>
+
+    <link rel="stylesheet" href="index.scss">
 </head>
 <body>
     <noscript>Sorry, this game requires Javascript.</noscript>
     <header>
-        blam!
+        <h1>blam!</h1>
         <ul aria-label="Instructions">
             <li>To start, press <kbd>Space</kbd> or tap the screen</li>
-            <li>Once started, press <kbd>Space</kbd> or tap the screen as soon as the background changes and you hear a beep!</li>
+            <li>After a short countdown, press <kbd>Space</kbd> or tap the screen as soon as the background changes and you hear a beep!</li>
+            <li>Press <kbd>Space</kbd> or tap the screen during the countdown to cancel.</li>
         </ul>
     </header>
-    <main>
+    <main class="full-width">
         <section id="game-window" aria-label="game window">
             <div id="game">Press <kbd>Space</kbd> to start the round.</div> 
         </section>

@@ -14,10 +14,12 @@ class Game {
   
   div: HTMLDivElement;
   history: HTMLUListElement;
+  html: HTMLElement;
 
-  constructor(div: HTMLDivElement, history: HTMLUListElement) {
+  constructor(div: HTMLDivElement, history: HTMLUListElement, html: HTMLElement) {
     this.div = div;
     this.history = history;
+    this.html = html;
     this.state = 'idle';
   }
   
@@ -67,7 +69,7 @@ class Game {
   
   async round() {
     const loop = 10;
-    const cancelMsg = `(Press <kbd>Space</kdb> to cancel)`
+    const cancelMsg = `(Press <kbd>Space</kbd> to cancel)`
     this.div.innerHTML = '<b>3</b> ' + cancelMsg;
     for (let i = 3000; i -= loop; i === 0) {
       if (this.state === 'canceling') {
@@ -78,7 +80,7 @@ class Game {
         this.div.innerHTML = '<b>2</b> ' + cancelMsg;
       }
       if (i === 1000) {
-        this.div.textContent = '<b>1</b> ' + cancelMsg;
+        this.div.innerHTML = '<b>1</b> ' + cancelMsg;
       }
       await delay(loop);
     }
@@ -97,7 +99,7 @@ class Game {
     console.log(this);
     console.log(this.div);
     this.state = 'flipped';
-    this.div.style.backgroundColor = 'rebeccapurple';
+    this.html.classList.toggle('blam');
     window.performance.mark(startMark);
     this.div.innerHTML = `<b>PRESS NOW!</b>`;
   }
@@ -125,6 +127,7 @@ class Game {
       entry.textContent = measure[0].duration.toPrecision(3);
       this.history.appendChild(entry);
     }
+    this.html.classList.remove('blam');
     this.state = 'idle';
     this.div.style.backgroundColor = 'white';
     performance.clearMarks();
@@ -140,7 +143,11 @@ async function delay(ms: number) {
 }
 
 (function(){ 
-  const game = new Game(document.querySelector("div#game"), document.querySelector("ul#history"));
+  const game = new Game(
+    document.querySelector("div#game"), 
+    document.querySelector("ul#history"),
+    document.querySelector("html")
+  );
   
   document.addEventListener("keypress", game.onKeypress);
   document.addEventListener("touchstart", game.onTouchStart);
