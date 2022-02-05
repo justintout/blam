@@ -24,15 +24,14 @@ class Game {
   }
   
   onTouchStart = (e: TouchEvent) => {
+    console.log('touch', e)
     if (this.state !== 'running') {
-      e.target.dispatchEvent(new KeyboardEvent('keypress', {
-        code: "Space"
-      }));
+      const ne = new KeyboardEvent('keypress', {code: this.startCode});
+      document.dispatchEvent(ne);
       return;
     }
-    e.target.dispatchEvent(new KeyboardEvent('keydown', {
-      code: "Space"
-    }));
+    const ne = new KeyboardEvent('keydown', {code: this.startCode});
+    document.dispatchEvent(ne);
   }
   
   onKeypress = (e: KeyboardEvent) => {
