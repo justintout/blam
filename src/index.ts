@@ -67,17 +67,18 @@ class Game {
   
   async round() {
     const loop = 10;
-    this.div.textContent = '3';
+    const cancelMsg = `(Press <kbd>Space</kdb> to cancel)`
+    this.div.innerHTML = '<b>3</b> ' + cancelMsg;
     for (let i = 3000; i -= loop; i === 0) {
       if (this.state === 'canceling') {
         this.reset();
         return;
       }
       if (i === 2000) {
-        this.div.textContent = '2';
+        this.div.innerHTML = '<b>2</b> ' + cancelMsg;
       }
       if (i === 1000) {
-        this.div.textContent = '1';
+        this.div.textContent = '<b>1</b> ' + cancelMsg;
       }
       await delay(loop);
     }
@@ -114,17 +115,16 @@ class Game {
     window.performance.measure("round-" + uuidv4(), startMark, endMark);
     const measure = window.performance.getEntriesByName(lastGameMeasure);
     this.div.textContent = measure[0].duration.toPrecision(3);
-    
-    
-
     console.log(measure[0].toJSON());
   }
 
   reset() {
     const measure = window.performance.getEntriesByName(lastGameMeasure);
     const entry = document.createElement('li')
-    entry.textContent = measure[0].duration.toPrecision(3);
-    this.history.appendChild(entry);
+    if (measure.length !== 0) {
+      entry.textContent = measure[0].duration.toPrecision(3);
+      this.history.appendChild(entry);
+    }
     this.state = 'idle';
     this.div.style.backgroundColor = 'white';
     performance.clearMarks();
